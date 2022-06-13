@@ -19,6 +19,7 @@ jobs:
       statuses: write
 
     steps:
+      - run: exit 1
 
       - uses: hkusu/status-create-action@v1
         if: always()
