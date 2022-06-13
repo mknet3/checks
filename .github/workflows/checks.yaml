@@ -15,10 +15,8 @@ jobs:
 
     steps:
 
-    - uses: hkusu/status-create-action@v1
-      with:
-        sha: ${{ github.sha }}
-        state: pending # specify 'error', 'failure', 'pending', or 'success'
-        target-url: http://ci.example.com # default: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        description: Running.. # option
-        context: My Workflow # default: '${{ github.workflow }}'
+      - uses: hkusu/status-create-action@v1
+        if: always()
+        with:
+          sha: ${{ github.sha }}
+          state: ${{ job.status == 'success' && 'success' || 'failure' }}
