@@ -1,0 +1,25 @@
+name: Check_2
+
+on:
+  workflow_run:
+    workflows:
+      - 'Check'
+
+jobs:
+  check_test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
+      statuses: write
+
+    steps:
+
+    - uses: hkusu/status-create-action@v1
+      with:
+        sha: ${{ github.sha }}
+        state: success # specify 'error', 'failure', 'pending', or 'success'
+        description: Running.. # option
+        context: My Workflow 2 # default: '${{ github.workflow }}'
